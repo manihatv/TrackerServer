@@ -1,7 +1,7 @@
 var express     =   require("express");
 var app         =   express();
 var bodyParser  =   require("body-parser");
-var mongoOp     =   require("./model/mongo");
+var mongodb     =   require("./model/mongo");
 var router      =   express.Router();
 
 app.use(bodyParser.json());
@@ -15,7 +15,7 @@ router.get("/",function(req,res){
 
 router.get("/showusernames",function(req,res){
     var response = {};
-    mongoOp.find({},function(err,data){
+    mongodb.find({},function(err,data){
         // Mongo command to fetch all data from collection.
         if(err) {
             response = {"error" : true,"message" : "Error fetching data"};
@@ -28,7 +28,7 @@ router.get("/showusernames",function(req,res){
 
 
 router.post("/addusernames",function(req,res) {
-    var db = new mongoOp();
+    var db = new mongodb();
     var uname = req.body.name;
     var response = {};
     console.log(req.body);
